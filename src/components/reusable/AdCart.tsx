@@ -10,10 +10,12 @@ type Props = {
 
 const AdCart = (props: Props) => {
   return (
-    <div className="w-[1248px] h-[512px] bg-[#C1DCDC] rounded-[24px] relative p-[48px]">
-      <div className=" grid grid-cols-2 justify-between w-full">
-        <div className="flex flex-col">
-          <div className={`text-${props.color} text-[64px] font-bold`}>
+    <div className="max-w-[1500px] w-full mx-auto min-h-[512px] bg-[#C1DCDC] rounded-[24px] relative lg:p-[48px]">
+      <div className=" grid grid-cols-1 lg:grid-cols-2 lg:justify-between w-full">
+        <div className="flex flex-col justify-center items-center">
+          <div
+            className={`text-${props.color} lg:text-[64px] text-[48px] pt-8 lg:text-start text-center font-bold`}
+          >
             <span>Buy your</span>
             <h1>dream plants</h1>
           </div>
@@ -41,7 +43,7 @@ const AdCart = (props: Props) => {
             </div>
           </div>
         </div>
-        <div className="absolute right-[24px] bottom-0 z-10">
+        <div className="lg:absolute flex items-center justify-center lg:right-[24px] bottom-0 z-10">
           <Image
             height={400}
             width={420}

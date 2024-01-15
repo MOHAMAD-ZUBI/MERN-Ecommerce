@@ -8,9 +8,9 @@ type Props = {};
 const Footer = (props: Props) => {
   return (
     <div className="">
-      <div className="h-[400px] bg-[#C1DCDC] w-full">
-        <div className="flex justify-between py-[48px] px-[98px]">
-          <div className="flex flex-col">
+      <div className="h-full bg-[#C1DCDC] w-full">
+        <div className="flex max-md:flex-col justify-between max-md:items-center py-[48px] px-[98px]">
+          <div className="flex flex-col max-md:items-center max-md:text-center">
             <h1 className="text-[18px] pb-[24px] font-bold">GREENMIND</h1>
             <h1 className="w-[150px] pb-[24px] ">
               We help you find your dream plant
@@ -20,12 +20,12 @@ const Footer = (props: Props) => {
               <FaXTwitter size={23} />
               <SlSocialInstagram size={23} />
             </div>
-            <h1 className="pt-[110px]">
+            <h1 className="max-md:p-[48px] md:pt-[110px]">
               2023 all Right Reserved Term of use GREENMIND
             </h1>
           </div>
 
-          <div className="grid grid-cols-3 gap-[48px]">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-[48px]">
             <div>
               <h1 className="text-[18px] font-bold">Information</h1>
               <ul className="py-[24px]">
