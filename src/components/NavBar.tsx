@@ -12,7 +12,7 @@ const NavBar = () => {
             {/* logo and navlinks */}
 
             <div className="flex">
-              <div className="px-[98px] text-2xl font-bold">HELLO</div>
+              <div className="px-[98px] text-2xl font-bold">GREENMIND</div>
               <div className="flex gap-[44px]">
                 <div className="font-semibold">Home</div>
                 <div>Products</div>
