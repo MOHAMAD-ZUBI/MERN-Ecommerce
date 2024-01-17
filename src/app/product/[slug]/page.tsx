@@ -11,6 +11,8 @@ import { SlWallet } from "react-icons/sl";
 import { BsArrowThroughHeart } from "react-icons/bs";
 import { LiaShippingFastSolid } from "react-icons/lia";
 import { HiOutlineReceiptRefund } from "react-icons/hi2";
+import ProductDetails from "@/components/reusable/ProductDetails";
+import SimilarProducts from "@/components/Products/SimilarProducts";
 
 type Props = {};
 const product = {
@@ -29,6 +31,7 @@ const product = {
   comments: "120",
   images: ["/card/creatine.jpg"],
 };
+
 const page = (props: Props) => {
   const [selectedSize, setSelectedSize] = useState<string>("");
   return (
@@ -71,6 +74,7 @@ const page = (props: Props) => {
             })}
           </div>
         </div>
+
         <div className="py-2 max-md:px-2">
           <h1 className="text-[38px] font-bold max-w-[400px]">
             {product.title}
@@ -125,7 +129,7 @@ const page = (props: Props) => {
                 return (
                   <div className="pr-[20px] mt-[25px]">
                     <button
-                      className={`min-w-[120px] h-[40px] rounded-md border-2 flex justify-between items-center  hover:border-gray-600`}
+                      className={`min-w-[120px] h-[40px] rounded-md bg-gray-100 border-2 flex justify-between items-center  hover:border-gray-600`}
                     >
                       <h1 className="text-center pl-[5px]">{e.flavour}</h1>
                       <div
@@ -183,6 +187,8 @@ const page = (props: Props) => {
           </div>
         </div>
       </div>
+      <ProductDetails />
+      <SimilarProducts />
     </div>
   );
 };
