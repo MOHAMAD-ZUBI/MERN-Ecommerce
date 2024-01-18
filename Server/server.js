@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 // Routers
 const auth = require("./Routes/AuthRouter");
 const ProductRouter = require("./Routes/ProductRouter");
+const CategoryRouter = require("./Routes/CategoryRouter");
 
 const app = express();
 app.use(express.json());
@@ -22,3 +23,4 @@ mongoose
 
 app.use("/api/auth", auth);
 app.use("/product", ProductRouter);
+app.use("/category", CategoryRouter);

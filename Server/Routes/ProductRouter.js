@@ -5,8 +5,9 @@ const {
   getSingleProduct,
   createVariant,
 } = require("../Controller/ProductController");
+const upload = require("../Middleware/UploadMiddleware");
 
-router.post("/create", createProduct);
+router.post("/create", upload.single("image"), createProduct);
 router.get("/getSingle/:_id", getSingleProduct);
 router.patch("/addVariant/:productId", createVariant);
 

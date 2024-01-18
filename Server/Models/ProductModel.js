@@ -49,9 +49,18 @@ const baseProductSchema = new Schema({
   comments: {
     type: [String],
   },
+  categories: {
+    type: [mongoose.Types.ObjectId],
+    ref: "Category",
+  },
   variants: {
     type: [mongoose.Types.ObjectId],
     ref: "Variant",
+  },
+  status: {
+    type: String,
+    enum: ["Draft", "Active"],
+    default: "Active",
   },
 });
 

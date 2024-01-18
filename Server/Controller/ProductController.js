@@ -1,20 +1,16 @@
 const mongoose = require("mongoose");
 const { Product, Variant, Flavor } = require("../Models/ProductModel");
-
-const createProduct1 = async (req, res) => {
-  const { title, description } = req.body;
-  try {
-    const product = await Product.create({ title, description });
-    return res.status(200).json({ product });
-  } catch (error) {
-    return res.status(401).json({ err: error.message });
-  }
-};
+const {
+  OK,
+  Created,
+  Unauthorized,
+  NotFound,
+  InternalServerError,
+} = require("../../shared/ErrorsHandler");
 
 async function createProduct(req, res) {
   try {
-    const { title, description, productImg, variantsData } = req.body;
-
+    const { title, description, variantsData, categoriesIds } = req.body;
     // Create flavors
     const flavorsData = req.body.flavorsData || [];
     const flavors = await Flavor.create(flavorsData);
@@ -25,7 +21,7 @@ async function createProduct(req, res) {
       variants = await Variant.create(
         variantsData.map((variant) => ({
           ...variant,
-          flavors: flavors.map((flavor) => flavor._id),
+          flavors: flavors.map((flavor) => flavor._id) || undefined,
         }))
       );
     }
@@ -34,14 +30,14 @@ async function createProduct(req, res) {
     const product = await Product.create({
       title,
       description,
-      img: productImg,
+      categories: categoriesIds || [],
       variants: variants.map((variant) => variant._id) || [],
     });
 
-    res.status(201).json({ product });
+    res.status(Created).json({ product });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: error.message });
+    res.status(InternalServerError).json({ error: error.message });
   }
 }
 
@@ -57,9 +53,9 @@ async function getSingleProduct(req, res) {
       .select("-__v");
 
     if (!product) throw new Error("no such product");
-    return res.status(200).json(product);
+    return res.status(OK).json(product);
   } catch (error) {
-    return res.status(401).json({ err: error.message });
+    return res.status(Unauthorized).json({ err: error.message });
   }
 }
 
@@ -84,8 +80,10 @@ async function createVariant(req, res) {
       path: "variants",
       populate: { path: "flavors" },
     });
-    return res.status(200).json(updatedProduct);
-  } catch (error) {}
+    return res.status(OK).json(updatedProduct);
+  } catch (error) {
+    return res.status(Unauthorized).json({ err: error.message });
+  }
 }
 
 module.exports = { createProduct, getSingleProduct, createVariant };

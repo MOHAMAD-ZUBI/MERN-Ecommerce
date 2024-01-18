@@ -11,7 +11,10 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        primary: "#C1DCDC",
+        primary: "#191919",
+        secondary: "white",
+        primary2: "#C1DCDC",
+        secondary2: "#807D7E",
       },
       maxWidth: {
         layout: "1536px",
