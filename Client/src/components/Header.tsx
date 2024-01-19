@@ -47,17 +47,17 @@ export default function Header() {
       <NavbarContent className="hidden sm:flex gap-4" justify="center">
         <NavbarItem>
           <Link className="text-black" href="#">
-            Features
+            Protein
           </Link>
         </NavbarItem>
         <NavbarItem isActive>
           <Link href="#" aria-current="page">
-            Customers
+            Amino Acids
           </Link>
         </NavbarItem>
         <NavbarItem>
           <Link className="text-black" href="#">
-            Integrations
+            Pre Wokrout
           </Link>
         </NavbarItem>
       </NavbarContent>
@@ -68,7 +68,7 @@ export default function Header() {
         <NavbarItem>
           <Button
             as={Link}
-            className="text-black font-[500] bg-primary"
+            className="text-white font-[500] bg-primary"
             href="#"
             variant="flat"
           >

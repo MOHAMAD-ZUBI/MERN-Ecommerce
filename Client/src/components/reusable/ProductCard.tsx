@@ -17,7 +17,7 @@ const ProductCard = (props: Props) => {
           height={313}
           src={props.img}
           alt="frame9"
-          className=" aspect-square"
+          className=" aspect-square scale-[90%] hover:scale-[105%] ease-in duration-500"
         />
       </div>
       <h1 className="text-[18px] pt-[12px]  font-bold">{props.title}</h1>

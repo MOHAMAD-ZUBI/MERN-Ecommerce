@@ -27,7 +27,7 @@ const NavBar = () => {
           <div>
             <FaRegUser size={23} />
           </div>
-          <div className=" bg-black w-[2px] h-[28px]"></div>
+          <div className=" bg-black w-[2px] text-white h-[28px]"></div>
           <div>
             <HiOutlineBars3BottomRight size={29} />
           </div>

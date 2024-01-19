@@ -10,11 +10,11 @@ type Props = {
 
 const AdCart = (props: Props) => {
   return (
-    <div className="max-w-[1500px] w-full mx-auto min-h-[512px] bg-primary rounded-[24px] relative lg:p-[48px]">
+    <div className="max-w-[1500px] w-full mx-auto min-h-[512px] bg-primary text-white rounded-[24px] relative lg:p-[48px]">
       <div className=" grid grid-cols-1 lg:grid-cols-2 lg:justify-between w-full">
         <div className="flex flex-col justify-center items-center">
           <div
-            className={`text-${props.color} lg:text-[64px] text-[48px] pt-8 lg:text-start text-center font-bold`}
+            className={` lg:text-[64px] text-[48px]  pt-8 lg:text-start text-center font-bold`}
           >
             <span>Buy your</span>
             <h1>dream plants</h1>
@@ -25,7 +25,7 @@ const AdCart = (props: Props) => {
                 <h1 className="font-semibold">50+</h1>
                 <h1>Plant Species</h1>
               </div>
-              <div className=" w-[2px] bg-black h-[64px]"></div>
+              <div className=" w-[2px] bg-gray-100 h-[64px]"></div>
               <div className="text-lg px-8">
                 <h1 className="font-semibold">100+</h1>
                 <h1>Customers</h1>
@@ -35,11 +35,11 @@ const AdCart = (props: Props) => {
 
           <div className="flex w-[418px] h-[54px] items-center rounded-[12px] p-[8px] bg-white">
             <input
-              className="placeholder:text-gray-400 w-[90%] h-full outline-none rounded-[12px] p-[18px]"
+              className="placeholder:text-gray-900 text-black w-[90%] h-full outline-none rounded-[12px] p-[18px]"
               placeholder="What are you looking for?"
             />
             <div className="bg-primary flex items-center justify-center w-[48px] rounded-[12px] h-full">
-              <IoSearchSharp size={27} color="#1E1E1E" />
+              <IoSearchSharp size={27} color="#white" />
             </div>
           </div>
         </div>
@@ -47,7 +47,7 @@ const AdCart = (props: Props) => {
           <Image
             height={400}
             width={420}
-            src={"/card/plant.png"}
+            src={"/card/protein.png"}
             alt="Rectangle.png"
           />
         </div>
@@ -55,8 +55,9 @@ const AdCart = (props: Props) => {
           <Image
             height={400}
             width={420}
-            src={"/card/Rectangle.png"}
+            src={"/card/rectangle-white.png"}
             alt="Rectangle.png"
+            className="fill-white"
           />
         </div>
       </div>

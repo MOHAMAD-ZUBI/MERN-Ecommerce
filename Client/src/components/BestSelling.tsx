@@ -4,22 +4,25 @@ import { GoArrowRight } from "react-icons/go";
 
 const Products = [
   {
-    title: "Natural Plants",
-    price: "1,400.00",
-    img: "/card/frame9.png",
-    description: "",
+    title: "Pre Workout",
+    price: "23.99",
+    img: "/card/preworkout.jpg",
+    description:
+      "Antrenman öncesi kullanım için tasarlanan kompleks ve etkili bir formülasyona sahiptir.  ",
   },
   {
-    title: "Artificial Plants",
-    price: "900.00",
-    img: "/card/frame8.png",
-    description: "",
+    title: "Creatine Monohydrate",
+    price: "34.00",
+    img: "/card/creatine.jpg",
+    description:
+      "Creatine; üzerinde en çok araştırma yapılmış spor takviyesidir. ",
   },
   {
-    title: "Artificial Plants",
-    price: "3,500.00",
-    img: "/card/frame7.png",
-    description: "",
+    title: "Pre Workout",
+    price: "23.99",
+    img: "/card/preworkout.jpg",
+    description:
+      "Antrenman öncesi kullanım için tasarlanan kompleks ve etkili bir formülasyona sahiptir.  ",
   },
 ];
 type Props = {
@@ -43,7 +46,7 @@ const BestSelling = (props: Props) => {
 
           <div className="max-lg:flex max-lg:justify-center py-2">
             <button
-              className={`bg-${props.color} py-[12px] px-[24px] rounded-[8px] flex justify-between items-center`}
+              className={`bg-${props.color} text-white py-[12px] px-[24px] rounded-[8px] flex justify-between items-center`}
             >
               See more <GoArrowRight />
             </button>

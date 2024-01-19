@@ -15,7 +15,7 @@ const AboutUs = () => {
       <div className="grid grid-cols-1 lg:gird lg:grid-cols-3 justify-center gap-[24px] items-center pt-[48px] ">
         <div className="flex flex-col items-center">
           <div className="bg-primary w-[96px] h-[96px] rounded-full flex justify-center items-center">
-            <PiPottedPlantLight size={50} color="gray" />
+            <PiPottedPlantLight size={50} color="white" />
           </div>
           <h1 className="pt-[24px] text-[18px] font-semibold">
             Large Assortment
@@ -28,7 +28,7 @@ const AboutUs = () => {
 
         <div className="flex flex-col items-center">
           <div className="bg-primary w-[96px] h-[96px] rounded-full flex justify-center items-center">
-            <BsBoxSeam size={40} color="gray" />
+            <BsBoxSeam size={40} color="white" />
           </div>
           <h1 className="pt-[24px] text-[18px] font-semibold">
             Fast & Free Shipping
@@ -41,7 +41,7 @@ const AboutUs = () => {
 
         <div className="flex flex-col items-center">
           <div className="bg-primary w-[96px] h-[96px] rounded-full flex justify-center items-center">
-            <BsTelephoneOutbound size={40} color="gray" />
+            <BsTelephoneOutbound size={40} color="white" />
           </div>
           <h1 className="pt-[24px] text-[18px] font-semibold">24/7 Support</h1>
           <h1 className="w-[360px] text-gray-700 pt-[12px]">

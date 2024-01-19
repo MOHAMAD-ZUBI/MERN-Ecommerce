@@ -5,6 +5,7 @@ import NavBar from "@/components/NavBar";
 import Footer from "@/components/Footer";
 import Providers from "@/components/Providers";
 import Header from "@/components/Header";
+import AdsLine from "@/components/AdsLine";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,6 +23,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <Providers>
+          <AdsLine />
           <Header />
           <div className="min-h-[calc(100vh-100px)]">{children}</div>
           <Footer />

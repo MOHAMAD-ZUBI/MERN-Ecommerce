@@ -24,12 +24,12 @@ const data = [
     title: "Creatine Monohydrate",
   },
   {
-    flavour: "Cilek",
-    image: "/card/creatine.jpg",
-    price: 12.0,
+    flavour: "Kola",
+    image: "/card/preworkout.jpg",
+    price: 22.0,
     shipping: "free",
     size: "30",
-    title: "Creatine Monohydrate",
+    title: "Pre Workout",
   },
 ];
 

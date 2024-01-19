@@ -58,8 +58,8 @@ const CartTable: FC<cartTableProps> = ({ products }) => {
                   </div>
                   <div>
                     <h1 className="font-semibold ">{product.title}</h1>
-                    <h1 className="pt-[6px]">{product.size}</h1>
-                    <h1 className="pt-[6px]">{product.flavour}</h1>
+                    <h1 className="pt-[6px]">Size: {product.size}</h1>
+                    <h1 className="pt-[6px]">Flavour: {product.flavour}</h1>
                   </div>
                 </div>
               </TableCell>

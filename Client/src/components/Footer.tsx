@@ -2,6 +2,8 @@ import React from "react";
 import { SlSocialYoutube } from "react-icons/sl";
 import { SlSocialInstagram } from "react-icons/sl";
 import { FaXTwitter } from "react-icons/fa6";
+import { SiVisa } from "react-icons/si";
+import Image from "next/image";
 
 type Props = {};
 
@@ -49,6 +51,12 @@ const Footer = (props: Props) => {
                 <li className="pb-[24px]">Pricing</li>
                 <li className="pb-[24px]">Resources</li>
               </ul>
+            </div>
+            <div className=" flex flex-row justify-end">
+              <Image alt="" src={"/card/visa.svg"} height={30} width={46} />
+              <Image alt="" src={"/card/maser.svg"} height={30} width={46} />
+              <Image alt="" src={"/card/paypal.svg"} height={30} width={46} />
+              <Image alt="" src={"/card/applepay.svg"} height={30} width={46} />
             </div>
           </div>
         </div>

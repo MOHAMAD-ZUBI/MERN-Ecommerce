@@ -12,7 +12,7 @@ const Categories = (props: Props) => {
         <h2 className="text-[18px]">Find what you are looking for</h2>
       </div>
 
-      <div className=" bg-primary w-full mb-[100px] ">
+      <div className=" bg-primary w-full text-white mb-[100px] ">
         <div className="w-full max-w-[1500] px-[18px] mx-auto pb-[96px] pt-16">
           <div className="flex justify-center items-center">
             <BestSelling color="white" />

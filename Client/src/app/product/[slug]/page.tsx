@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import React, { useState } from "react";
-import { Breadcrumbs, BreadcrumbItem } from "@nextui-org/react";
+import { Breadcrumbs, BreadcrumbItem, Link } from "@nextui-org/react";
 
 import { LiaCommentSolid } from "react-icons/lia";
 import { GoStarFill } from "react-icons/go";
@@ -146,7 +146,9 @@ const page = (props: Props) => {
                 className={`bg-primary py-[12px] px-[24px] rounded-[8px] flex justify-between items-center`}
               >
                 <BsCart2 size={20} />{" "}
-                <h1 className="px-[12px] font-semibold">Add to cart</h1>
+                <h1 className="px-[12px] font-semibold text-white">
+                  Add to cart
+                </h1>
               </button>
               <div className="text-center border-2 font-semibold border-black rounded-xl py-[12px] px-[40px]">
                 ${product.price}
