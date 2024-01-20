@@ -8,12 +8,47 @@ import { FcGoogle } from "react-icons/fc";
 import CartInput from "@/components/reusable/CartInput";
 import { FaEyeSlash } from "react-icons/fa";
 import { FaEye } from "react-icons/fa";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { useRouter } from "next/navigation";
+import {
+  SignInCredentials,
+  SignInValidator,
+} from "../validators/signinValidator";
+import ControllerInput from "../components/ControllerInput";
+import { signIn } from "next-auth/react";
+import axios from "axios";
 type Props = {};
 
 const page = (props: Props) => {
+  const router = useRouter();
+  const {
+    control,
+    formState: { errors },
+    getValues,
+    handleSubmit,
+  } = useForm<SignInCredentials>({
+    resolver: zodResolver(SignInValidator),
+    mode: "onSubmit",
+  });
+  const handleLogin = async ({ email, password }: SignInCredentials) => {
+    await signIn("credentials", {
+      email,
+      password,
+      redirect: false,
+    }).then((res) => {
+      if (res?.error != null) {
+        setError(res.error);
+      } else {
+        router.push("/");
+      }
+    });
+  };
   const [isVisible, setIsVisible] = useState(false);
+  const [error, setError] = useState<string>("");
 
   const toggleVisibility = () => setIsVisible(!isVisible);
+
   return (
     <div className="max-w-[1232px] px-[16px] mx-auto my-[20px]">
       <div className="flex flex-row justify-between gap-[77px] ">
@@ -44,8 +79,15 @@ const page = (props: Props) => {
           </div>
 
           <div className="mt-[15px] gap-[15px] flex flex-col">
-            <Input type="email" label="Email" />
-            <Input
+            <ControllerInput
+              control={control}
+              name="email"
+              type="email"
+              label="Email"
+            />
+            <ControllerInput
+              control={control}
+              name="password"
               label="Password"
               endContent={
                 <button
@@ -65,7 +107,11 @@ const page = (props: Props) => {
             />
             <div className="flex flex-row mt-[35px] justify-between">
               <div className="flex flex-col md:gap-[15px]">
-                <Button color="primary" className="max-w-[150px] w-full">
+                <Button
+                  onClick={handleSubmit((data) => handleLogin(data))}
+                  color="primary"
+                  className="max-w-[150px] w-full"
+                >
                   Sign In
                 </Button>
                 <Link className="" href="/signup">

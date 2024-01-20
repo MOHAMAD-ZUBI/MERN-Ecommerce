@@ -8,10 +8,61 @@ import { FcGoogle } from "react-icons/fc";
 import CartInput from "@/components/reusable/CartInput";
 import { FaEyeSlash } from "react-icons/fa";
 import { FaEye } from "react-icons/fa";
+import { useRouter } from "next/navigation";
+import {
+  SignUpCredentials,
+  SignUpValidator,
+} from "../validators/signupValidator";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { signIn } from "next-auth/react";
+import API from "@/lib/API";
+import { apiRoutes } from "@/lib/apiRoutes";
+import ControllerInput from "../components/ControllerInput";
 type Props = {};
 
 const page = (props: Props) => {
   const [isVisible, setIsVisible] = useState(false);
+  const [error, setError] = useState<string>("");
+  const router = useRouter();
+  const {
+    control,
+    formState: { errors },
+    getValues,
+    handleSubmit,
+  } = useForm<SignUpCredentials>({
+    resolver: zodResolver(SignUpValidator),
+    mode: "onSubmit",
+  });
+  const handleSingUp = async ({
+    email,
+    password,
+    firstName,
+    lastName,
+  }: SignUpCredentials) => {
+    try {
+      await API.post(apiRoutes.signup, {
+        email,
+        password,
+        firstName,
+        lastName,
+      });
+
+      await signIn("credentials", {
+        email,
+        password,
+        redirect: false,
+      }).then((res) => {
+        if (res?.error != null) {
+          setError(res.error);
+        } else {
+          router.push("/");
+        }
+      });
+    } catch (error: any) {
+      setError(error.message);
+    }
+  };
 
   const toggleVisibility = () => setIsVisible(!isVisible);
   return (
@@ -44,12 +95,29 @@ const page = (props: Props) => {
           </div>
           <div className=" flex flex-col ">
             <div className="mt-[35px] gap-[15px] flex flex-row">
-              <Input type="text" label="First name" />
-              <Input type="text" label="Last name" />
+              <ControllerInput
+                control={control}
+                name="firstName"
+                type="text"
+                label="First name"
+              />
+              <ControllerInput
+                control={control}
+                name="lastName"
+                type="text"
+                label="Last name"
+              />
             </div>
             <div className="mt-[15px] gap-[15px] flex flex-col">
-              <Input type="email" label="Email" />
-              <Input
+              <ControllerInput
+                control={control}
+                name="email"
+                type="email"
+                label="Email"
+              />
+              <ControllerInput
+                control={control}
+                name="password"
                 label="Password"
                 endContent={
                   <button
@@ -68,11 +136,15 @@ const page = (props: Props) => {
                 className=" "
               />
               <div className="flex flex-row mt-[35px] justify-between">
-                <Button color="primary" className="max-w-[150px] w-full">
+                <Button
+                  onClick={handleSubmit((data) => handleSingUp(data))}
+                  color="primary"
+                  className="max-w-[150px] w-full"
+                >
                   Sign up
                 </Button>
-                <Link className="" href="/">
-                  Forgot your password?
+                <Link className="" href="/signin">
+                  Already have an account? Sign In
                 </Link>
               </div>
             </div>

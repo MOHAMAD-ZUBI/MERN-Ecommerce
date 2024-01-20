@@ -16,14 +16,14 @@ const AdCart = (props: Props) => {
           <div
             className={` lg:text-[64px] text-[48px]  pt-8 lg:text-start text-center font-bold`}
           >
-            <span>Buy your</span>
-            <h1>dream plants</h1>
+            <span>Build your</span>
+            <h1>dream physique</h1>
           </div>
           <div className="py-[24px]">
             <div className="flex flex-row">
               <div className="text-lg px-8">
                 <h1 className="font-semibold">50+</h1>
-                <h1>Plant Species</h1>
+                <h1>Products</h1>
               </div>
               <div className=" w-[2px] bg-gray-100 h-[64px]"></div>
               <div className="text-lg px-8">

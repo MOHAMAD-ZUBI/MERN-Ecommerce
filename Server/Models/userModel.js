@@ -33,7 +33,7 @@ const userSchema = new Schema(
 
     phone: {
       type: String,
-      required: true,
+
       min: 9,
     },
     permissions: {

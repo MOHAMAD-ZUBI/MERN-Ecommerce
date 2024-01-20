@@ -1,6 +1,8 @@
+"use client";
 import React from "react";
 import ProductCard from "./reusable/ProductCard";
 import { GoArrowRight } from "react-icons/go";
+import { useRouter } from "next/navigation";
 
 const Products = [
   {
@@ -30,6 +32,7 @@ type Props = {
 };
 
 const BestSelling = (props: Props) => {
+  const router = useRouter();
   return (
     <div className="max-w-[1500px] px-[18px] mx-auto mt-[100px]">
       <div className="lg:gid lg:grid-cols-4 gap-12 grid grid-cols-2 items-center pb-[113px]">
@@ -38,17 +41,18 @@ const BestSelling = (props: Props) => {
             Best Selling
           </h1>
           <h1 className="text-[32px] font-bold lg:text-start text-center">
-            Plants
+            Supplements
           </h1>
           <h1 className="text-[18px]  text-gray-700  lg:text-start text-center">
-            Easiest way to healthy life by buying your favorite plants
+            Easiest way to healthy life by buying your favorite supplements
           </h1>
 
           <div className="max-lg:flex max-lg:justify-center py-2">
             <button
+              onClick={() => router.push("/products")}
               className={`bg-${props.color} text-white py-[12px] px-[24px] rounded-[8px] flex justify-between items-center`}
             >
-              See more <GoArrowRight />
+              <h1 className="mx-[5px]">See more</h1> <GoArrowRight />
             </button>
           </div>
         </div>

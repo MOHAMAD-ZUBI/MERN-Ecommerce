@@ -1,5 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const cors = require("cors");
 
 // Routers
 const auth = require("./Routes/AuthRouter");
@@ -7,6 +8,7 @@ const ProductRouter = require("./Routes/ProductRouter");
 const CategoryRouter = require("./Routes/CategoryRouter");
 
 const app = express();
+app.use(cors());
 app.use(express.json());
 
 app.use(express.json());
