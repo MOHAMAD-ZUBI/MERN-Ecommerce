@@ -11,21 +11,22 @@ import {
   NavbarMenu,
   NavbarMenuItem,
 } from "@nextui-org/react";
+import {
+  Dropdown,
+  DropdownTrigger,
+  DropdownMenu,
+  DropdownItem,
+} from "@nextui-org/react";
+import { FiShoppingBag } from "react-icons/fi";
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
   const menuItems = [
-    "Profile",
-    "Dashboard",
-    "Activity",
-    "Analytics",
-    "System",
-    "Deployments",
-    "My Settings",
-    "Team Settings",
-    "Help & Feedback",
-    "Log Out",
+    { title: "Home", link: "/" },
+    { title: "Orders", link: "/orders" },
+    { title: "Cart", link: "/cart" },
+    { title: "Logout", link: "/signout" },
   ];
 
   return (
@@ -40,7 +41,9 @@ export default function Header() {
           className="sm:hidden"
         />
         <NavbarBrand>
-          <p className="font-bold text-inherit text-2xl">GREENMIND</p>
+          <Link href="/">
+            <p className="font-bold text-inherit text-2xl">GREENMIND</p>
+          </Link>
         </NavbarBrand>
       </NavbarContent>
 
@@ -51,8 +54,8 @@ export default function Header() {
           </Link>
         </NavbarItem>
         <NavbarItem isActive>
-          <Link href="#" aria-current="page">
-            Amino Acids
+          <Link href="/" aria-current="page">
+            Home
           </Link>
         </NavbarItem>
         <NavbarItem>
@@ -62,21 +65,24 @@ export default function Header() {
         </NavbarItem>
       </NavbarContent>
       <NavbarContent justify="end">
-        <NavbarItem className="hidden lg:flex">
-          <Link href="#">Login</Link>
+        <NavbarItem className="flex justify-center ">
+          <Link href="/cart">
+            <FiShoppingBag size={24} />
+          </Link>
         </NavbarItem>
         <NavbarItem>
           <Button
             as={Link}
             className="text-white font-[500] bg-primary"
-            href="#"
+            href="/signin"
             variant="flat"
           >
-            Sign Up
+            Sign In
           </Button>
         </NavbarItem>
       </NavbarContent>
       <NavbarMenu>
+        <div className="mt-[100px]" />
         {menuItems.map((item, index) => (
           <NavbarMenuItem key={`${item}-${index}`}>
             <Link
@@ -88,10 +94,10 @@ export default function Header() {
                   : "foreground"
               }
               className="w-full"
-              href="#"
+              href={item.link}
               size="lg"
             >
-              {item}
+              {item.title}
             </Link>
           </NavbarMenuItem>
         ))}

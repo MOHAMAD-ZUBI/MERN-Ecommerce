@@ -64,7 +64,7 @@ const page = (props: Props) => {
               className=" "
             />
             <div className="flex flex-row mt-[35px] justify-between">
-              <div className="flex flex-col gap-[15px]">
+              <div className="flex flex-col md:gap-[15px]">
                 <Button color="primary" className="max-w-[150px] w-full">
                   Sign In
                 </Button>

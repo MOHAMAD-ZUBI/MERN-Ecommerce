@@ -1,9 +1,34 @@
 import React from "react";
 import ProductCard from "./reusable/ProductCard";
 import BestSelling from "./BestSelling";
+import { GoArrowRight } from "react-icons/go";
+import CategoryCard from "./reusable/CategoryCard";
 
 type Props = {};
 
+const Products = [
+  {
+    title: "Pre Workout",
+    price: "23.99",
+    img: "/card/preworkout.jpg",
+    description:
+      "Antrenman öncesi kullanım için tasarlanan kompleks ve etkili bir formülasyona sahiptir.  ",
+  },
+  {
+    title: "Creatine Monohydrate",
+    price: "34.00",
+    img: "/card/creatine.jpg",
+    description:
+      "Creatine; üzerinde en çok araştırma yapılmış spor takviyesidir. ",
+  },
+  {
+    title: "Peanut Butter",
+    price: "14.95",
+    img: "/card/fistik.png",
+    description:
+      "Katkı maddesi içermez ve %100 fıstıktan üretilmiştir. Pratik ve lezzetli öğün olarak kullanılabilir.  ",
+  },
+];
 const Categories = (props: Props) => {
   return (
     <>
@@ -12,11 +37,19 @@ const Categories = (props: Props) => {
         <h2 className="text-[18px]">Find what you are looking for</h2>
       </div>
 
-      <div className=" bg-primary w-full text-white mb-[100px] ">
-        <div className="w-full max-w-[1500] px-[18px] mx-auto pb-[96px] pt-16">
-          <div className="flex justify-center items-center">
-            <BestSelling color="white" />
-          </div>
+      <div className="max-w-[1500px] px-[18px] mx-auto mt-[10px]">
+        <div className="lg:gid lg:grid-cols-3 gap-12 grid grid-cols-2 justify-between items-center pb-[113px]">
+          {Products.map((product) => {
+            return (
+              <div className="">
+                <CategoryCard
+                  title={product.title}
+                  img={product.img}
+                  description={product.description}
+                />
+              </div>
+            );
+          })}
         </div>
       </div>
     </>

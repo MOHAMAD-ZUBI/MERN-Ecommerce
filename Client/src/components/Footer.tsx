@@ -4,6 +4,7 @@ import { SlSocialInstagram } from "react-icons/sl";
 import { FaXTwitter } from "react-icons/fa6";
 import { SiVisa } from "react-icons/si";
 import Image from "next/image";
+import Link from "next/link";
 
 type Props = {};
 
@@ -32,7 +33,9 @@ const Footer = (props: Props) => {
               <h1 className="text-[18px] font-bold">Information</h1>
               <ul className="py-[24px]">
                 <li className="pb-[24px]">About</li>
-                <li className="pb-[24px]">Product</li>
+                <li className="pb-[24px]">
+                  <Link href="/products">Products</Link>
+                </li>
                 <li className="pb-[24px]">Blog</li>
               </ul>
             </div>
