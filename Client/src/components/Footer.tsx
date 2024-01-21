@@ -28,7 +28,7 @@ const Footer = (props: Props) => {
             </h1>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-[48px]">
+          <div className="grid grid-cols-1 lg:grid-cols-3 max-md:text-center gap-[48px]">
             <div>
               <h1 className="text-[18px] font-bold">Information</h1>
               <ul className="py-[24px]">

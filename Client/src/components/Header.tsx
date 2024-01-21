@@ -22,7 +22,7 @@ import { useSession } from "next-auth/react";
 
 export default function Header() {
   const { data } = useSession();
-  console.log(data);
+
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
   const menuItems = [

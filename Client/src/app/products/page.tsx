@@ -2,6 +2,7 @@ import CategoryLink from "@/components/Products/reusable/CategoryLink";
 import ProductCard from "@/components/reusable/ProductCard";
 import { GiSettingsKnobs } from "react-icons/gi";
 import React from "react";
+import Filters from "@/components/reusable/Filters";
 
 type Props = {};
 
@@ -13,15 +14,11 @@ const page = (props: Props) => {
       </h1>
       <div className="md:flex md:flex-row">
         <div className="max-w-[300px] w-full max-md:hidden border-3 border-gray-100 mx-[15px]">
-          <div>
+          <div className="w-full">
             <h1 className="text-2xl text-start py-3 font-semibold px-4 border-b-3 flex flex-row justify-between border-gray-100">
               Filter <GiSettingsKnobs className=" rotate-90" />
             </h1>
-          </div>
-          <div>
-            {[0, 1, 2, 3].map((Link) => {
-              return <CategoryLink link="/test" title="Healthy Food" />;
-            })}
+            <Filters />
           </div>
         </div>
         <div className="grid grid-cols-2 lg:grid-cols-3 gap-[18px] mt-[69px]">
