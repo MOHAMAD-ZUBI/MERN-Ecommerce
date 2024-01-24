@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
+const path = require("path");
 
 // Routers
 const auth = require("./Routes/AuthRouter");
@@ -22,7 +23,7 @@ mongoose
   .catch((err) => {
     console.log(err.message);
   });
-
+app.use("/images", express.static(path.join(__dirname, "images")));
 app.use("/api/auth", auth);
 app.use("/product", ProductRouter);
 app.use("/category", CategoryRouter);

@@ -24,7 +24,7 @@ const ProductCard = (props: Props) => {
       <p className="text-gray-600 text-[14px]">{props.description}</p>
       <div className="flex">
         <h2 className="text-[18px] mt-[12px] text-gray-600 px-[15px] bg-gray-100  text-center rounded-xl">
-          ${props.price}
+          {props.price} TL
         </h2>
       </div>
     </div>

@@ -61,11 +61,13 @@ async function getSingleProduct(req, res) {
 
 async function createVariant(req, res) {
   try {
-    const { size, price, img } = req.body;
+    const { size, price, img, weight, currency } = req.body;
     const flavorsData = req.body.flavorsData || [];
     const { productId } = req.params;
     const flavors = await Flavor.create(flavorsData);
     const newVariant = await Variant.create({
+      weight,
+      currency,
       size,
       price,
       img: img,
@@ -86,4 +88,43 @@ async function createVariant(req, res) {
   }
 }
 
-module.exports = { createProduct, getSingleProduct, createVariant };
+async function updateProduct(req, res) {
+  try {
+    const { title, description, img, status } = req.body;
+    const { productId } = req.params;
+    const image = req.file ? req.file.path : undefined;
+    const fullImgUrl = process.env.baseUrl + image.replace("./", "");
+
+    const updatedProduct = await Product.findOneAndUpdate(
+      { _id: productId },
+      { title, img: fullImgUrl, description, status },
+      { new: true }
+    ).populate({
+      path: "variants",
+      populate: { path: "flavors" },
+    });
+    if (!updatedProduct) {
+      return res.status(NotFound).json({ error: "Product not found" });
+    }
+    return res.status(OK).json(updatedProduct);
+  } catch (error) {
+    return res.status(InternalServerError).json({ error: error.message });
+  }
+}
+
+async function getAllProducts(req, res) {
+  try {
+    const { limit } = req.body;
+    const products = await Product.find({}).limit(limit).populate("variants");
+    return res.status(OK).json(products);
+  } catch (error) {
+    return res.status(InternalServerError).json({ error: error.message });
+  }
+}
+module.exports = {
+  createProduct,
+  getSingleProduct,
+  createVariant,
+  getAllProducts,
+  updateProduct,
+};

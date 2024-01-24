@@ -29,6 +29,12 @@ const variantSchema = new Schema({
   img: {
     type: String,
   },
+  currency: {
+    type: String,
+  },
+  weight: {
+    type: String,
+  },
 });
 
 const Variant = mongoose.model("Variant", variantSchema);

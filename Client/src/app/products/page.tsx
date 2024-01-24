@@ -3,6 +3,7 @@ import ProductCard from "@/components/reusable/ProductCard";
 import { GiSettingsKnobs } from "react-icons/gi";
 import React from "react";
 import Filters from "@/components/reusable/Filters";
+import FetchProducts from "@/components/Products/FetchProducts";
 
 type Props = {};
 
@@ -21,17 +22,8 @@ const page = (props: Props) => {
             <Filters />
           </div>
         </div>
-        <div className="grid grid-cols-2 lg:grid-cols-3 gap-[18px] mt-[69px]">
-          {[0, 1, 2, 3, 4, 5, 6, 7].map((product) => {
-            return (
-              <ProductCard
-                description="this is creatine monohydrate"
-                img="/card/creatine.jpg"
-                price="12"
-                title="Creatine"
-              />
-            );
-          })}
+        <div>
+          <FetchProducts />
         </div>
       </div>
     </div>

@@ -1,8 +1,9 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ProductCard from "./reusable/ProductCard";
 import { GoArrowRight } from "react-icons/go";
 import { useRouter } from "next/navigation";
+import axios from "axios";
 
 const Products = [
   {
@@ -30,9 +31,35 @@ const Products = [
 type Props = {
   color: string;
 };
+interface Product {
+  _id: string;
+  title: string;
+  description: string;
+  img: string;
+  variants: any;
+}
 
 const BestSelling = (props: Props) => {
+  const [products, setProducts] = useState<Product[]>([]);
   const router = useRouter();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const limit = 3;
+        const response = await axios.get("http://localhost:3060/product/all", {
+          data: { limit },
+        });
+        setProducts(response.data);
+        console.log(response.data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <div className="max-w-[1500px] px-[18px] mx-auto mt-[100px]">
       <div className="lg:gid lg:grid-cols-4 gap-12 grid grid-cols-2 items-center pb-[113px]">
@@ -56,13 +83,13 @@ const BestSelling = (props: Props) => {
             </button>
           </div>
         </div>
-        {Products.map((product) => {
+        {products.map((product) => {
           return (
-            <div className="">
+            <div className="" key={product._id}>
               <ProductCard
                 title={product.title}
                 img={product.img}
-                price={product.price}
+                price={product.variants[0].price}
                 description={product.description}
               />
             </div>
