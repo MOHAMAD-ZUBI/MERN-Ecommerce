@@ -114,7 +114,8 @@ async function updateProduct(req, res) {
 
 async function getAllProducts(req, res) {
   try {
-    const { limit } = req.body;
+    const { limit } = req.query;
+
     const products = await Product.find({}).limit(limit).populate("variants");
     return res.status(OK).json(products);
   } catch (error) {

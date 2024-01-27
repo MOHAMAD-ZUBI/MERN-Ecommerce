@@ -5,29 +5,6 @@ import { GoArrowRight } from "react-icons/go";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 
-const Products = [
-  {
-    title: "Pre Workout",
-    price: "23.99",
-    img: "/card/preworkout.jpg",
-    description:
-      "Antrenman öncesi kullanım için tasarlanan kompleks ve etkili bir formülasyona sahiptir.  ",
-  },
-  {
-    title: "Creatine Monohydrate",
-    price: "34.00",
-    img: "/card/creatine.jpg",
-    description:
-      "Creatine; üzerinde en çok araştırma yapılmış spor takviyesidir. ",
-  },
-  {
-    title: "Pre Workout",
-    price: "23.99",
-    img: "/card/preworkout.jpg",
-    description:
-      "Antrenman öncesi kullanım için tasarlanan kompleks ve etkili bir formülasyona sahiptir.  ",
-  },
-];
 type Props = {
   color: string;
 };
@@ -48,10 +25,9 @@ const BestSelling = (props: Props) => {
       try {
         const limit = 3;
         const response = await axios.get("http://localhost:3060/product/all", {
-          data: { limit },
+          params: { limit },
         });
         setProducts(response.data);
-        console.log(response.data);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
