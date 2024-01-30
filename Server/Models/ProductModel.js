@@ -39,6 +39,26 @@ const variantSchema = new Schema({
 
 const Variant = mongoose.model("Variant", variantSchema);
 
+const nutritionSchema = new Schema({
+  energy: {
+    type: String,
+  },
+  protein: {
+    type: String,
+  },
+  carbohydrates: {
+    type: String,
+  },
+  fats: {
+    type: String,
+  },
+  sugar: {
+    type: String,
+  },
+});
+
+const Nutrition = mongoose.model("Nutrition", nutritionSchema);
+
 const baseProductSchema = new Schema({
   title: {
     type: String,
@@ -48,6 +68,10 @@ const baseProductSchema = new Schema({
   },
   img: {
     type: String,
+  },
+  slug: {
+    type: String,
+    required: true,
   },
   reviews: {
     type: String,
@@ -68,8 +92,31 @@ const baseProductSchema = new Schema({
     enum: ["Draft", "Active"],
     default: "Active",
   },
+  nutrition: {
+    energy: {
+      type: String,
+    },
+    protein: {
+      type: String,
+    },
+    carbohydrates: {
+      type: String,
+    },
+    fats: {
+      type: String,
+    },
+    sugar: {
+      type: String,
+    },
+    salt: {
+      type: String,
+    },
+    b6: {
+      type: String,
+    },
+  },
 });
 
 const Product = mongoose.model("Product", baseProductSchema);
 
-module.exports = { Flavor, Variant, Product };
+module.exports = { Flavor, Variant, Product, Nutrition };

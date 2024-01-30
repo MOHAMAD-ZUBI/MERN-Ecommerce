@@ -1,5 +1,10 @@
 const mongoose = require("mongoose");
-const { Product, Variant, Flavor } = require("../Models/ProductModel");
+const {
+  Product,
+  Variant,
+  Flavor,
+  Nutrition,
+} = require("../Models/ProductModel");
 const {
   OK,
   Created,
@@ -10,7 +15,8 @@ const {
 
 async function createProduct(req, res) {
   try {
-    const { title, description, variantsData, categoriesIds } = req.body;
+    const { title, description, variantsData, categoriesIds, slug, nutrition } =
+      req.body;
     // Create flavors
     const flavorsData = req.body.flavorsData || [];
     const flavors = await Flavor.create(flavorsData);
@@ -30,7 +36,9 @@ async function createProduct(req, res) {
     const product = await Product.create({
       title,
       description,
+      slug,
       categories: categoriesIds || [],
+      nutrition,
       variants: variants.map((variant) => variant._id) || [],
     });
 
@@ -43,8 +51,8 @@ async function createProduct(req, res) {
 
 async function getSingleProduct(req, res) {
   try {
-    const { _id } = req.params;
-    const product = await Product.findById({ _id })
+    const { slug } = req.params;
+    const product = await Product.findOne({ slug })
       .populate({
         path: "variants",
         populate: { path: "flavors" },
@@ -90,14 +98,24 @@ async function createVariant(req, res) {
 
 async function updateProduct(req, res) {
   try {
-    const { title, description, img, status } = req.body;
+    const { title, description, img, status, slug, nutrition } = req.body;
     const { productId } = req.params;
     const image = req.file ? req.file.path : undefined;
-    const fullImgUrl = process.env.baseUrl + image.replace("./", "");
+
+    let fullImgUrl;
+    if (image !== undefined)
+      fullImgUrl = process.env.baseUrl + image.replace("./", "");
 
     const updatedProduct = await Product.findOneAndUpdate(
       { _id: productId },
-      { title, img: fullImgUrl, description, status },
+      {
+        title,
+        img: fullImgUrl,
+        description,
+        status,
+        slug,
+        nutrition: nutrition || undefined,
+      },
       { new: true }
     ).populate({
       path: "variants",
@@ -114,7 +132,7 @@ async function updateProduct(req, res) {
 
 async function getAllProducts(req, res) {
   try {
-    const { limit } = req.query;
+    const { limit } = req.params;
 
     const products = await Product.find({}).limit(limit).populate("variants");
     return res.status(OK).json(products);

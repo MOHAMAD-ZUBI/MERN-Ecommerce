@@ -14,6 +14,7 @@ interface Product {
   description: string;
   img: string;
   variants: any;
+  slug: string;
 }
 
 const BestSelling = (props: Props) => {
@@ -24,9 +25,9 @@ const BestSelling = (props: Props) => {
     const fetchData = async () => {
       try {
         const limit = 3;
-        const response = await axios.get("http://localhost:3060/product/all", {
-          params: { limit },
-        });
+        const response = await axios.get(
+          `http://localhost:3060/product/all/${limit}`
+        );
         setProducts(response.data);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -63,6 +64,7 @@ const BestSelling = (props: Props) => {
           return (
             <div className="" key={product._id}>
               <ProductCard
+                slug={product.slug}
                 title={product.title}
                 img={product.img}
                 price={product.variants[0].price}

@@ -22,6 +22,7 @@ interface Product {
   categories: string[];
   variants: Variant[];
   status: string;
+  nutrition: object;
 }
 
 interface Comment {}
@@ -42,6 +43,7 @@ interface Flavor {
 }
 
 const SingleProduct: FC<Props> = ({ product }) => {
+  console.log(product.nutrition);
   const [selectedSize, setSelectedSize] = useState<string>(
     product.variants[0].size
   );
@@ -158,7 +160,7 @@ const SingleProduct: FC<Props> = ({ product }) => {
                 );
               })}
             </div>
-            <div className="pt-[35px] flex flex-row gap-[25px]">
+            <div className="pt-[35px] flex flex-row flex-wrap gap-[25px]">
               <button
                 className={`bg-primary py-[12px] px-[24px] rounded-[8px] flex justify-between items-center`}
               >
@@ -210,7 +212,10 @@ const SingleProduct: FC<Props> = ({ product }) => {
           </div>
         </div>
       </div>
-      <ProductDetails />
+      <ProductDetails
+        description={product.description}
+        nutrition={product.nutrition}
+      />
       <SimilarProducts />
     </div>
   );

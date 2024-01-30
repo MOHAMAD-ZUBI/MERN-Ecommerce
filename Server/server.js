@@ -7,6 +7,7 @@ const path = require("path");
 const auth = require("./Routes/AuthRouter");
 const ProductRouter = require("./Routes/ProductRouter");
 const CategoryRouter = require("./Routes/CategoryRouter");
+const CartRouter = require("./Routes/CartRouter");
 
 const app = express();
 app.use(cors());
@@ -27,3 +28,4 @@ app.use("/images", express.static(path.join(__dirname, "images")));
 app.use("/api/auth", auth);
 app.use("/product", ProductRouter);
 app.use("/category", CategoryRouter);
+app.use("/cart", CartRouter);

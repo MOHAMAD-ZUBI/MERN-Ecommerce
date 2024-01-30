@@ -36,7 +36,9 @@ const Footer = (props: Props) => {
                 <li className="pb-[24px]">
                   <Link href="/products">Products</Link>
                 </li>
-                <li className="pb-[24px]">Blog</li>
+                <li className="pb-[24px]">
+                  <Link href="#bestSelling">Best Selling</Link>
+                </li>
               </ul>
             </div>
             <div>

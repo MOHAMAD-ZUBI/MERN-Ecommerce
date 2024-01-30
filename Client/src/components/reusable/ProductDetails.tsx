@@ -1,7 +1,10 @@
 import React from "react";
 import { Tabs, Tab } from "@nextui-org/react";
 
-type Props = {};
+type Props = {
+  description: string;
+  nutrition: object;
+};
 
 const ProductDetails = (props: Props) => {
   return (
@@ -11,16 +14,32 @@ const ProductDetails = (props: Props) => {
       </h1>
       <Tabs variant="underlined" aria-label="Options" color="primary">
         <Tab key="descriptions" title="Descriptions">
-          <p className="p-2.5 text-[#807D7E]">
-            Creatine; üzerinde en çok araştırma yapılmış spor takviyesidir.
-          </p>
+          <p className="p-2.5 text-[#807D7E]">{props.description}</p>
         </Tab>
-        <Tab key="additional-information" title="Nutrition Facts">
-          <div className=" pointer-events-none text-start">
-            <p className="p-2.5 text-[#807D7E]">Servis 3 g</p>
-            <div className="w-[300px] bg-gray-500 h-[2px]"></div>
-            <p className="p-2.5 text-[#807D7E]">Kreatin Monohidrat 3000 mg</p>
-            <div className="w-[300px] bg-gray-500 h-[2px]"></div>
+        <Tab
+          key="additional-information"
+          title="Nutrition Facts"
+          className="max-w-[400px] "
+        >
+          <div className=" pointer-events-none text-start w-full">
+            <div className="py-2.5 text-[#807D7E] flex flex-row uppercase justify-between items-center">
+              <p className="py-2.5 text-gray-600 font-semibold">
+                Nuritional Facts
+              </p>
+              <p>Per Serving</p>
+            </div>
+
+            {Object.keys(props.nutrition).map((key) => {
+              return (
+                <div key={key}>
+                  <div className="p-2.5 text-[#807D7F] flex flex-row uppercase justify-between">
+                    <p className="text-gray-600">{key}</p>{" "}
+                    <p> {(props.nutrition as Record<string, string>)[key]}</p>
+                  </div>
+                  <div className="w-[400px] bg-gray-500 h-[2px]"></div>
+                </div>
+              );
+            })}
           </div>
         </Tab>
         <Tab key="reviews" title="Reviews">
