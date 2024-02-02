@@ -1,9 +1,16 @@
 import React from "react";
-import { Tabs, Tab } from "@nextui-org/react";
+import { Tabs, Tab, Progress } from "@nextui-org/react";
+import { GoStarFill } from "react-icons/go";
+import ReviewComment from "./ReviewComment";
 
 type Props = {
   description: string;
   nutrition: object;
+  review: {
+    comment: string;
+    date: string;
+    name: string;
+  }[];
 };
 
 const ProductDetails = (props: Props) => {
@@ -43,13 +50,17 @@ const ProductDetails = (props: Props) => {
           </div>
         </Tab>
         <Tab key="reviews" title="Reviews">
-          <p className="p-2.5">
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Possimus
-            doloribus qui consequatur commodi alias mollitia, eaque non. Minima
-            necessitatibus facere doloremque ipsam animi ullam optio voluptatem.
-            Dolorum ea autem repellendus! Omnis explicabo tempore molestias
-            commodi quae suscipit aliquid eos,
-          </p>
+          <div className=" w-full">
+            {props.review.map((rev) => {
+              return (
+                <ReviewComment
+                  comment={rev.comment}
+                  date={rev.date}
+                  name={rev.name}
+                />
+              );
+            })}
+          </div>
         </Tab>
       </Tabs>
     </div>

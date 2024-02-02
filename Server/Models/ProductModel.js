@@ -119,4 +119,4 @@ const baseProductSchema = new Schema({
 
 const Product = mongoose.model("Product", baseProductSchema);
 
-module.exports = { Flavor, Variant, Product, Nutrition };
+module.exports = { Flavor, Variant, Product, Nutrition, variantSchema };

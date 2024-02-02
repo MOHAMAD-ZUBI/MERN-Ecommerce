@@ -130,6 +130,34 @@ async function updateProduct(req, res) {
   }
 }
 
+async function updateVariant(req, res) {
+  try {
+    const { size, weight, price, currency } = req.body;
+    const { variantId } = req.params;
+    const image = req.file ? req.file.path : undefined;
+    let fullImgUrl;
+    if (image !== undefined)
+      fullImgUrl = process.env.baseUrl + image.replace("./", "");
+
+    const updatedVariant = await Variant.findByIdAndUpdate(
+      { _id: variantId },
+      {
+        size,
+        price,
+        weight,
+        currency,
+        img: fullImgUrl,
+      },
+      { new: true }
+    );
+    if (!updateVariant)
+      return res.status(NotFound).json({ error: "no such variant" });
+    return res.status(OK).json(updatedVariant);
+  } catch (error) {
+    return res.status(InternalServerError).json({ error: error.message });
+  }
+}
+
 async function getAllProducts(req, res) {
   try {
     const { limit } = req.params;
@@ -146,4 +174,5 @@ module.exports = {
   createVariant,
   getAllProducts,
   updateProduct,
+  updateVariant,
 };

@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Navbar,
   NavbarBrand,
@@ -10,18 +10,26 @@ import {
   NavbarMenuToggle,
   NavbarMenu,
   NavbarMenuItem,
+  Badge,
 } from "@nextui-org/react";
-import {
-  Dropdown,
-  DropdownTrigger,
-  DropdownMenu,
-  DropdownItem,
-} from "@nextui-org/react";
+
 import { FiShoppingBag } from "react-icons/fi";
 import { useSession } from "next-auth/react";
 
+import { useCart } from "@/hooks/useCart";
+import UserDropdown from "./UserDropdown";
+
 export default function Header() {
   const { data } = useSession();
+  const { data: cartData } = useCart();
+  const totalProducts = cartData?.products.reduce(
+    (total, product) => total + product.quantity,
+    0
+  );
+
+  useEffect(() => {
+    console.log(cartData);
+  }, [cartData]);
 
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
@@ -68,20 +76,32 @@ export default function Header() {
         </NavbarItem>
       </NavbarContent>
       <NavbarContent justify="end">
-        <NavbarItem className="flex justify-center ">
-          <Link href="/cart">
-            <FiShoppingBag size={24} />
+        <NavbarItem className="flex justify-center  ">
+          <Link href="/cart" className="">
+            <Badge
+              content={totalProducts}
+              shape="circle"
+              size="md"
+              showOutline={false}
+              className="text-white bg-black"
+            >
+              <FiShoppingBag size={25} />
+            </Badge>
           </Link>
         </NavbarItem>
         <NavbarItem>
-          <Button
-            as={Link}
-            className="text-white font-[500] bg-primary"
-            href="/signin"
-            variant="flat"
-          >
-            Sign In
-          </Button>
+          {!data?.user ? (
+            <Button
+              as={Link}
+              className="text-white font-[500] bg-primary"
+              href="/signin"
+              variant="flat"
+            >
+              Sign In
+            </Button>
+          ) : (
+            <UserDropdown />
+          )}
         </NavbarItem>
       </NavbarContent>
       <NavbarMenu>

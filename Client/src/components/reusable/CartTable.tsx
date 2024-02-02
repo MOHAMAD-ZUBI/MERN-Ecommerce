@@ -10,6 +10,7 @@ import {
 import Image from "next/image";
 import { GoTrash } from "react-icons/go";
 import QuantityCounter from "./QuantityCounter";
+import { Variant } from "@/types/Product";
 
 type Props = {
   title: string;
@@ -21,7 +22,11 @@ type Props = {
 };
 
 type cartTableProps = {
-  products: Props[];
+  products: {
+    product: Variant;
+    flavor: string;
+    quantity: number;
+  }[];
 };
 
 const CartTable: FC<cartTableProps> = ({ products }) => {
@@ -32,6 +37,7 @@ const CartTable: FC<cartTableProps> = ({ products }) => {
   const handleIncrease = () => {
     setQuantity((prev) => prev + 1);
   };
+
   return (
     <Table aria-label="Example static collection table">
       <TableHeader>
@@ -52,33 +58,33 @@ const CartTable: FC<cartTableProps> = ({ products }) => {
                     <Image
                       height={120}
                       width={105}
-                      src={product.image}
+                      src={product.product.img}
                       alt=""
                     />
                   </div>
                   <div>
-                    <h1 className="font-semibold ">{product.title}</h1>
-                    <h1 className="pt-[6px]">Size: {product.size}</h1>
-                    <h1 className="pt-[6px]">Flavour: {product.flavour}</h1>
+                    <h1 className="pt-[6px]">Size: {product.product.size}</h1>
+                    <h1 className="pt-[6px]">Flavour: {product.flavor}</h1>
                   </div>
                 </div>
               </TableCell>
               <TableCell>
                 <div>
-                  <h1 className="font-semibold">${product.price}</h1>
+                  <h1 className="font-semibold">${product.product.price}</h1>
                 </div>
               </TableCell>
               <TableCell>
-                <QuantityCounter key={product.title} />
+                <QuantityCounter
+                  counter={product.quantity}
+                  key={product.product._id}
+                />
               </TableCell>
               <TableCell>
-                <div className="text-[#BEBCBD] uppercase">
-                  {product.shipping}
-                </div>
+                <div className="text-[#BEBCBD] uppercase">Free</div>
               </TableCell>
               <TableCell>
                 <div>
-                  <h1 className="font-semibold">${product.price}</h1>
+                  <h1 className="font-semibold">${product.product.price}</h1>
                 </div>
               </TableCell>
               <TableCell>

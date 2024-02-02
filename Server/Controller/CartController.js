@@ -1,7 +1,8 @@
-const { Variant } = require("../Models/ProductModel");
+const { Variant, Flavor } = require("../Models/ProductModel");
 const Cart = require("../Models/CartModel");
 const User = require("../Models/userModel");
 const jwt = require("jsonwebtoken");
+const mongoose = require("mongoose");
 
 const checkUser = async (token) => {
   try {
@@ -13,33 +14,90 @@ const checkUser = async (token) => {
   }
 };
 
+const addVariant = async (updatedVariants, variantToAdd, flavor, total) => {
+  const variantToAddObjectId = new mongoose.Types.ObjectId(variantToAdd);
+  const variant = await Variant.findById({ _id: variantToAdd });
+  if (!variant) return total;
+
+  const index = updatedVariants.findIndex(
+    (variant) =>
+      JSON.stringify(variant.product) ===
+        JSON.stringify(variantToAddObjectId) && flavor === variant.flavor
+  );
+
+  if (index !== -1) {
+    // Variant exists, update quantity
+    updatedVariants[index] = {
+      ...updatedVariants[index],
+      quantity: ++updatedVariants[index].quantity,
+    };
+  } else {
+    // Variant doesn't exist, add it to the array
+    updatedVariants.push({ product: variantToAdd, quantity: 1, flavor });
+  }
+  return (total += variant.price);
+};
+
+const removeVariant = async (
+  updatedVariants,
+  variantToRemove,
+  flavor,
+  total
+) => {
+  const variantToRemoveObjectId = new mongoose.Types.ObjectId(variantToRemove);
+  const variant = await Variant.findById({ _id: variantToRemove });
+  if (!variant) return total;
+  const index = updatedVariants.findIndex(
+    (variant) =>
+      JSON.stringify(variant.product) ===
+        JSON.stringify(variantToRemoveObjectId) && flavor === variant.flavor
+  );
+
+  if (index !== -1) {
+    // Variant exists, update quantity
+    if (updatedVariants[index].quantity > 1) {
+      updatedVariants[index] = {
+        ...updatedVariants[index],
+        quantity: --updatedVariants[index].quantity,
+      };
+    } else {
+      updatedVariants.splice(index, 1);
+    }
+    return (total -= variant.price);
+  }
+};
+
 const create = async (req, res) => {
   try {
-    const { variants, variantToAdd, variantToRemove } = req.body;
+    const { variants, variantToAdd, variantToRemove, flavor } = req.body;
+    if (!variantToAdd && !variantToRemove)
+      return res.status(401).json("bad request abi");
     const token = req.headers.authorization.split(" ")[1];
     const user = await checkUser(token);
     let cart = await Cart.findOne({ user: user._id });
+
+    let total = cart?.total || 0;
     let updatedVariants = variants || [];
+    if (cart) updatedVariants = updatedVariants.concat(cart.products); // updated to merge databased cart with new data
 
-    if (cart) updatedVariants = updatedVariants.concat(cart.products);
+    if (variantToRemove && !cart) return res.status(401).json("attmnyk 3lya");
+    if (variantToRemove)
+      total = await removeVariant(
+        updatedVariants,
+        variantToRemove,
+        flavor,
+        total
+      );
 
-    if (variantToRemove) updatedVariants.pop(variantToRemove);
-    if (variantToAdd) updatedVariants.push(variantToAdd);
-
-    let total = 0;
-    const variantList = await Variant.find({ _id: { $in: updatedVariants } }); // find all variants from the variants array (containing objectids)
-
-    variantList.map((variant) => {
-      total += variant.price;
-    });
-    if (variantList.length === 1) total *= updatedVariants.length;
+    if (variantToAdd)
+      total = await addVariant(updatedVariants, variantToAdd, flavor, total);
 
     if (cart) {
       cart = await Cart.findOneAndUpdate(
         { _id: cart._id },
         {
           total,
-          products: updatedVariants,
+          $set: { products: updatedVariants },
         },
         { new: true }
       );
@@ -61,7 +119,9 @@ const Get = async (req, res) => {
   try {
     const token = req.headers.authorization.split(" ")[1];
     const user = await checkUser(token);
-    const cart = await Cart.findOne({ user: user._id }).populate("products");
+    const cart = await Cart.findOne({ user: user._id })
+      .populate({ path: "products.product", select: "-flavors" })
+      .exec();
     return res.status(200).json(cart);
   } catch (error) {
     return res.status(401).json({ error: error.message });

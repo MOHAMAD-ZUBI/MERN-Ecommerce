@@ -25,7 +25,7 @@ mongoose
     console.log(err.message);
   });
 app.use("/images", express.static(path.join(__dirname, "images")));
-app.use("/api/auth", auth);
+app.use("/auth", auth);
 app.use("/product", ProductRouter);
 app.use("/category", CategoryRouter);
 app.use("/cart", CartRouter);

@@ -1,17 +1,27 @@
 "use client";
+import API from "@/lib/API";
 import { NextUIProvider } from "@nextui-org/react";
-import { SessionProvider } from "next-auth/react";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { SessionProvider, useSession } from "next-auth/react";
 import { FC } from "react";
 
 type ProvidersProps = {
   children: React.ReactNode;
   session: any;
 };
-
+const queryClient = new QueryClient();
 const Providers: FC<ProvidersProps> = ({ children, session }) => {
+  if (session?.user) {
+    const { token } = session?.user;
+    API.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+  } else {
+    API.defaults.headers.common["Authorization"] = null;
+  }
   return (
     <NextUIProvider>
-      <SessionProvider session={session}>{children}</SessionProvider>
+      <QueryClientProvider client={queryClient}>
+        <SessionProvider session={session}>{children}</SessionProvider>
+      </QueryClientProvider>
     </NextUIProvider>
   );
 };

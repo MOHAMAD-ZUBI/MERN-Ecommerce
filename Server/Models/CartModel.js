@@ -7,10 +7,22 @@ const cartSchema = new Schema(
     total: {
       type: Number,
     },
-    products: {
-      type: [mongoose.Types.ObjectId],
-      ref: "Variant",
-    },
+    products: [
+      {
+        product: {
+          type: mongoose.Types.ObjectId,
+          ref: "Variant",
+        },
+        quantity: {
+          type: Number,
+          default: 1, // You can set a default quantity if needed
+        },
+        flavor: {
+          type: String,
+          default: "Aromasiz", // You can set a default quantity if needed
+        },
+      },
+    ],
     user: {
       type: mongoose.Types.ObjectId,
       ref: "User",

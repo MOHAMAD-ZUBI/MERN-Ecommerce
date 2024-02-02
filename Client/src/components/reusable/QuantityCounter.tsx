@@ -1,10 +1,12 @@
 "use client";
-import React, { useState } from "react";
+import React, { FC, useState } from "react";
 
-type Props = {};
+type Props = {
+  counter: number;
+};
 
-const QuantityCounter = (props: Props) => {
-  const [quantity, setQuantity] = useState(1);
+const QuantityCounter: FC<Props> = ({ counter }) => {
+  const [quantity, setQuantity] = useState(counter);
   const handleDecrease = () => {
     setQuantity((prev) => (prev !== 0 ? prev - 1 : 0));
   };

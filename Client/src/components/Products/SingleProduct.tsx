@@ -9,6 +9,7 @@ import { SlWallet } from "react-icons/sl";
 import { GoArrowRight, GoStarFill } from "react-icons/go";
 import Image from "next/image";
 import { BreadcrumbItem, Breadcrumbs } from "@nextui-org/react";
+import { mutateCart } from "@/hooks/useCart";
 
 type Props = {
   product: Product;
@@ -42,14 +43,40 @@ interface Flavor {
   color: string;
 }
 
+const Reviews = [
+  {
+    name: "Mohamad Z.",
+    comment: "Fiyatına göre çok iyi teşekkürler",
+    date: "01/02/24",
+  },
+  {
+    name: "Mustafa E.",
+    comment: "Tam bir fiyat performans ürünü.",
+    date: "04/01/24",
+  },
+  {
+    name: "Seyit S.",
+    comment: "Harika bir urun",
+    date: "30/12/2023",
+  },
+];
+
 const SingleProduct: FC<Props> = ({ product }) => {
-  console.log(product.nutrition);
+  const [itemCart, setItemToCart] = useState();
   const [selectedSize, setSelectedSize] = useState<string>(
     product.variants[0].size
+  );
+  const [selectedFlavor, setSelectedFlavor] = useState<string>(
+    product.variants[0].flavors[0].title
   );
   const [selectedVariant, setSelectedVariant] = useState<Variant>(
     product.variants[0]
   );
+
+  const { mutate: AddToCart, isPending } = mutateCart({
+    variantToAdd: selectedVariant._id,
+    flavor: selectedFlavor,
+  });
   return (
     <div className="max-w-[1232px] px-[16px] mx-auto my-[20px]">
       <div className="py-1">
@@ -148,7 +175,11 @@ const SingleProduct: FC<Props> = ({ product }) => {
                 return (
                   <div className="pr-[20px] mt-[25px]">
                     <button
-                      className={`min-w-[120px] h-[40px] rounded-md bg-gray-100 border-2 flex justify-between items-center  hover:border-gray-600`}
+                      onClick={() => setSelectedFlavor(flavor.title)}
+                      className={`min-w-[120px] h-[40px] rounded-md bg-gray-100 border-2 flex justify-between items-center  hover:border-gray-600 ${
+                        selectedFlavor === flavor.title &&
+                        "bg-[#3C4242] border-[#3C4242] animate-appearance-in transition-colors duration-500 text-black"
+                      }`}
                     >
                       <h1 className="text-center pl-[5px]">{flavor.title}</h1>
                       <div
@@ -162,6 +193,8 @@ const SingleProduct: FC<Props> = ({ product }) => {
             </div>
             <div className="pt-[35px] flex flex-row flex-wrap gap-[25px]">
               <button
+                onClick={() => AddToCart()}
+                disabled={isPending}
                 className={`bg-primary py-[12px] px-[24px] rounded-[8px] flex justify-between items-center`}
               >
                 <BsCart2 size={20} />{" "}
@@ -213,6 +246,7 @@ const SingleProduct: FC<Props> = ({ product }) => {
         </div>
       </div>
       <ProductDetails
+        review={Reviews}
         description={product.description}
         nutrition={product.nutrition}
       />
