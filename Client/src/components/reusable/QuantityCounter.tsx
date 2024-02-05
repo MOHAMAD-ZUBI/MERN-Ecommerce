@@ -8,10 +8,10 @@ type Props = {
 const QuantityCounter: FC<Props> = ({ counter }) => {
   const [quantity, setQuantity] = useState(counter);
   const handleDecrease = () => {
-    setQuantity((prev) => (prev !== 0 ? prev - 1 : 0));
+    setQuantity(counter--);
   };
   const handleIncrease = () => {
-    setQuantity((prev) => prev + 1);
+    setQuantity(counter++);
   };
   return (
     <div>

@@ -1,10 +1,12 @@
 "use client";
 import CartInput from "@/components/reusable/CartInput";
 import CartTable from "@/components/reusable/CartTable";
+import { mutateCart } from "@/hooks/useCart";
 import { Cart } from "@/types/Cart";
+import { Variant } from "@/types/Product";
 import { BreadcrumbItem, Breadcrumbs, Button } from "@nextui-org/react";
 
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 
 type Props = {
   data: Cart;

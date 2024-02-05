@@ -11,6 +11,7 @@ import Image from "next/image";
 import { GoTrash } from "react-icons/go";
 import QuantityCounter from "./QuantityCounter";
 import { Variant } from "@/types/Product";
+import { mutateCart } from "@/hooks/useCart";
 
 type Props = {
   title: string;
@@ -30,6 +31,15 @@ type cartTableProps = {
 };
 
 const CartTable: FC<cartTableProps> = ({ products }) => {
+  const [selectedVariant, setSelectedVariant] = useState<Variant>(
+    products[0].product
+  );
+  const [selectedFlavor, setSelectedFlavor] = useState("");
+  const { mutate: RemoveFromCart, isPending } = mutateCart({
+    variantToRemove: selectedVariant._id,
+    flavor: selectedFlavor,
+  });
+
   const [quantity, setQuantity] = useState(1);
   const handleDecrease = () => {
     setQuantity((prev) => (prev !== 0 ? prev - 1 : 0));
@@ -89,7 +99,15 @@ const CartTable: FC<cartTableProps> = ({ products }) => {
               </TableCell>
               <TableCell>
                 <div>
-                  <button className=" text-red-800">
+                  <button
+                    onClick={async () => {
+                      await setSelectedVariant(product.product);
+                      await setSelectedFlavor(product.flavor);
+                      RemoveFromCart();
+                    }}
+                    disabled={isPending}
+                    className=" text-red-800"
+                  >
                     <GoTrash size={18} />
                   </button>
                 </div>

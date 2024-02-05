@@ -1,5 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
+import Marquee from "react-fast-marquee";
 
 type Props = {};
 
@@ -23,7 +24,9 @@ const AdsLine = (props: Props) => {
   return (
     <div className="w-full md:h-[40px] h-[50px] bg-primary text-white">
       <div className="flex flex-row h-full items-center justify-center">
-        <h1 className=" animate-pulse  ">{messages[currentMessage]}</h1>
+        <Marquee direction="right" speed={70} pauseOnHover>
+          <h1 className=" animate-pulse  ">{messages[currentMessage]}</h1>
+        </Marquee>
       </div>
     </div>
   );
