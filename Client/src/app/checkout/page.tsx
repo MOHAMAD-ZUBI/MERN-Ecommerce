@@ -3,6 +3,8 @@ import CustomRadio from "@/components/reusable/CustomRadio";
 import { BreadcrumbItem, Breadcrumbs, RadioGroup } from "@nextui-org/react";
 import Image from "next/image";
 import React from "react";
+import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
+import PaypalPayment from "@/components/checkout/PaypalPayment";
 
 type Props = {};
 
@@ -46,8 +48,14 @@ const Payment = [
 ];
 
 const page = (props: Props) => {
+  const initialOptions = {
+    clientId: "ATUa4jaXjfYUAK7fRUEhuxtL8Ll7DhgTHGoV70-vUkDK_pooKS6IDZLaTTTLa7gVtHtq3RILuHs8R78l",
+    currency: "USD",
+    intent: "capture",
+};
   return (
-    <div className="max-w-[1232px] px-[16px] mx-auto my-[20px]">
+    <PayPalScriptProvider options={initialOptions} >
+       <div className="max-w-[1232px] px-[16px] mx-auto my-[20px]">
       <div className="py-1">
         <Breadcrumbs
           separator="/"
@@ -79,25 +87,8 @@ const page = (props: Props) => {
               );
             })}
           </RadioGroup>
-          <div>
-            <h1 className="mt-[25px] text-2xl font-semibold">Payment Method</h1>
-
-            <RadioGroup className=" w-full mt-[15px]">
-              {Payment.map((payment) => {
-                return (
-                  <CustomRadio
-                    icon={payment.icon}
-                    edit={false}
-                    key={payment.title}
-                    className=" border-2 border-gray-200"
-                    description=""
-                    value={payment.title}
-                  >
-                    {payment.title}
-                  </CustomRadio>
-                );
-              })}
-            </RadioGroup>
+          <div className="mt-[35px]">
+          <PaypalPayment/>
           </div>
         </div>
         <div className="md:max-w-[332px] w-full flex flex-col items-center">
@@ -148,7 +139,10 @@ const page = (props: Props) => {
           </div>
         </div>
       </div>
+      
     </div>
+    </PayPalScriptProvider>
+   
   );
 };
 

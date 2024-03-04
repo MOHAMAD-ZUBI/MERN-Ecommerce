@@ -9,6 +9,7 @@ import AdsLine from "@/components/AdsLine";
 import { getServerSession } from "next-auth";
 import { options } from "@/lib/authOptions";
 
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -23,15 +24,20 @@ export default async function RootLayout({
 }) {
   const session = await getServerSession(options);
 
+ 
+
   return (
     <html lang="en">
       <body className={inter.className}>
+      
         <Providers session={session}>
           <AdsLine />
           <Header />
           <div className="min-h-[calc(100vh-100px)]">{children}</div>
           <Footer />
+          
         </Providers>
+       
       </body>
     </html>
   );
